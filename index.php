@@ -5,9 +5,113 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your Laughter — Pablo Neruda</title>
+    <link rel="icon" href="./images/logo.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
+<?php
+include 'connect.php';
+
+// ------------------ Handle new post ------------------
+if (isset($_POST['author']) && isset($_POST['content']) && !isset($_POST['reply_post_id'])) {
+    $author = $_POST['author'] ?: "Anonymous";
+    $content = $_POST['content'];
+
+    $stmt = $conn->prepare("INSERT INTO posts (author, content) VALUES (?, ?)");
+    $stmt->bind_param("ss", $author, $content);
+    $stmt->execute();
+    $stmt->close();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// ------------------ Handle new reply ------------------
+if (isset($_POST['reply_post_id']) && isset($_POST['reply_content'])) {
+    $post_id = intval($_POST['reply_post_id']);
+    $parent_id = !empty($_POST['parent_id']) ? intval($_POST['parent_id']) : NULL;
+    $author = $_POST['reply_author'] ?: "Anonymous";
+    $content = $_POST['reply_content'];
+
+    $stmt = $conn->prepare("INSERT INTO replies (post_id, parent_id, author, content, likes, created_at) VALUES (?, ?, ?, ?, 0, NOW())");
+    $stmt->bind_param("iiss", $post_id, $parent_id, $author, $content);
+    $stmt->execute();
+    $stmt->close();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// ------------------ Handle likes ------------------
+if (isset($_POST['like_post_id'])) {
+    $post_id = intval($_POST['like_post_id']);
+    $conn->query("UPDATE posts SET likes = IFNULL(likes,0) + 1 WHERE id=$post_id");
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+if (isset($_POST['like_reply_id'])) {
+    $reply_id = intval($_POST['like_reply_id']);
+    $conn->query("UPDATE replies SET likes = IFNULL(likes,0) + 1 WHERE id=$reply_id");
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// ------------------ Fetch posts ------------------
+$posts = $conn->query("SELECT * FROM posts ORDER BY created_at DESC")->fetch_all(MYSQLI_ASSOC);
+
+// ------------------ Fetch replies ------------------
+$replies_result = $conn->query("SELECT * FROM replies ORDER BY created_at ASC")->fetch_all(MYSQLI_ASSOC);
+
+// Build nested replies tree
+$replies_tree = [];
+foreach ($replies_result as $r) {
+    $parent = $r['parent_id'] ?: 0;
+    $replies_tree[$r['post_id']][$parent][] = $r;
+}
+
+function display_replies($post_id, $parent_id, $replies_tree)
+{
+    if (isset($replies_tree[$post_id][$parent_id])) {
+        foreach ($replies_tree[$post_id][$parent_id] as $reply) {
+            echo '<div class="ml-' . ($parent_id ? '8' : '0') . ' mt-2 p-4 bg-sky-50 rounded-lg">';
+            echo '<p class="text-gray-700 text-sm break-words leading-relaxed">' . htmlspecialchars($reply['content']) . '</p>';
+            echo '<p class="text-xs text-gray-500 my-1">— ' . htmlspecialchars($reply['author']) . ' on ' . date("m/d/Y H:i", strtotime($reply['created_at'])) . '</p>';
+
+            echo '<div class="flex items-center gap-4">';
+
+            // Like reply
+            echo '<form method="POST">
+                    <input type="hidden" name="like_reply_id" value="' . $reply['id'] . '">
+                    <button type="submit" class="flex items-center text-red-600 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#e90e0eff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e90e0eff" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.015-4.5-4.5-4.5-1.74 0-3.285.992-4.05 2.457C11.285 4.742 9.74 3.75 8 3.75 5.515 3.75 3.5 5.765 3.5 8.25c0 7.22 8.5 12 8.5 12s8.5-4.78 8.5-12z" />
+                        </svg>
+                        <span>' . ($reply['likes'] ?: 0) . '</span>
+                    </button>
+                  </form>';
+
+            // Reply button for nested reply
+            echo '<form method="POST" class="mt-1 reply-form">
+                    <input type="hidden" name="reply_post_id" value="' . $post_id . '">
+                    <input type="hidden" name="parent_id" value="' . $reply['id'] . '">
+                    <input type="text" name="reply_author" placeholder="Your Name (optional)" class="reply-author hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none">
+                    <textarea name="reply_content" placeholder="Write a reply..." class="reply-content hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none resize-none" rows="1"></textarea>
+                    <button type="button" class="show-reply-btn text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
+                    <button type="submit" class="reply-submit hidden text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
+                  </form>';
+
+            echo '</div>';
+
+            // Recursive call for nested replies
+            display_replies($post_id, $reply['id'], $replies_tree);
+
+            echo '</div>';
+        }
+    }
+}
+
+?>
+
+
 <!-- ANIMATION STYLE -->
 <style>
     @keyframes scroll {
@@ -98,7 +202,7 @@
             <div id="poemIntro" class="flex md:flex-row flex-col gap-10 items-center justify-center transition-all duration-500">
                 <div>
                     <img
-                        src="/GreatBooks/images/pic3.jpg"
+                        src="./images/pic3.jpg"
                         alt="Pablo Neruda"
                         class="w-full md:max-w-xs rounded-lg shadow-lg cursor-pointer transform hover:scale-105 transition duration-300"
                         onclick="showNerudaDetails()">
@@ -123,7 +227,7 @@
 
                     <!-- Image -->
                     <div class="flex-shrink-0">
-                        <img src="/GreatBooks/images/pic1.jpg" alt="Pablo Neruda" class="w-72 md:w-100 rounded-lg shadow-lg">
+                        <img src="./images/pic1.jpg" alt="Pablo Neruda" class="w-72 md:w-100 rounded-lg shadow-lg">
                     </div>
 
                     <!-- Info Content -->
@@ -275,37 +379,37 @@
                     <div class="flex space-x-6 p-2">
                         <!-- Metaphor -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Metaphor</h3>
                         </div>
 
                         <!-- Imagery -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Imagery</h3>
                         </div>
 
                         <!-- Repetition -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Repetition</h3>
                         </div>
 
                         <!-- Symbolism -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Symbolism</h3>
                         </div>
 
                         <!-- Tone -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Tone</h3>
                         </div>
 
                         <!-- Personification -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Personification</h3>
                         </div>
                     </div>
@@ -313,32 +417,32 @@
                     <!-- Duplicate set for smooth infinite effect -->
                     <div class="flex space-x-6 p-2">
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Metaphor</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Imagery</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg ">
-                            <img src="/GreatBooks/images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Repetition</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Symbolism</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Tone</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
+                            <img src="./images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Personification</h3>
                         </div>
                     </div>
@@ -433,12 +537,20 @@
                         Neruda ends with deep emotional intensity, merging themes of <b>love, dependence, and joy</b>.
                     </p>
                 </div>
+                <!-- Previous button -->
+                <button id="prevBtn"
+                    class="absolute left-1 sm:left-3 top-2 text-xl text-[#EF7722] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg">
+                    ❮
+                </button>
 
+                <!-- Next button -->
                 <button id="nextBtn"
-                    class="hidden sm:flex absolute right-2 sm:right-3 top-1/2 transform -translate-y-7 
-                bg-[#EF7722] text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-[#e56a15]">
+                    class="absolute right-1 sm:right-3 top-2 text-xl text-[#EF7722] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg">
                     ❯
                 </button>
+
+
+
 
             </div>
 
@@ -466,27 +578,66 @@
                     <p class="text-gray-600">Share your reflections about <span class="font-semibold italic">"Your Laughter"</span> by Pablo Neruda. We’d love to hear your thoughts!</p>
                 </div>
 
-                <!-- Scrollable thoughts list -->
-                <div id="thoughtsList" class="space-y-4 mb-6 max-h-96 overflow-y-auto pr-2">
-                    <!-- dynamically filled -->
+                <div id="thoughtsList" class="bg-sky-100 space-y-2 mb-6 max-h-96 overflow-y-auto p-4">
+                    <?php foreach ($posts as $post): ?>
+                        <div class="mb-4 py-4 px-6 bg-white rounded-lg">
+                            <p class="italic text-gray-800 break-words leading-relaxed">"<?= htmlspecialchars($post['content']) ?>"</p>
+                            <p class="text-xs text-gray-500 my-2">— posted on <?= date("m/d/Y H:i", strtotime($post['created_at'])) ?> by <?= htmlspecialchars($post['author']) ?></p>
+
+                            <div class="flex items-center gap-4">
+                                <!-- Like post -->
+                                <form method="POST">
+                                    <input type="hidden" name="like_post_id" value="<?= $post['id'] ?>">
+                                    <button type="submit" class="flex items-center text-red-600 text-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#e90e0eff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e90e0eff" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.015-4.5-4.5-4.5-1.74 0-3.285.992-4.05 2.457C11.285 4.742 9.74 3.75 8 3.75 5.515 3.75 3.5 5.765 3.5 8.25c0 7.22 8.5 12 8.5 12s8.5-4.78 8.5-12z" />
+                                        </svg>
+                                        <span><?= $post['likes'] ?: 0 ?></span>
+                                    </button>
+                                </form>
+
+                                <!-- Reply form for main post -->
+                                <form method="POST" class="mt-1 reply-form">
+                                    <input type="hidden" name="reply_post_id" value="<?= $post['id'] ?>">
+                                    <input type="text" name="reply_author" placeholder="Your Name (optional)" class="reply-author hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none">
+                                    <textarea name="reply_content" placeholder="Write a reply..." class="reply-content hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none resize-none" rows="1"></textarea>
+                                    <button type="button" class="show-reply-btn text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
+                                    <button type="submit" class="reply-submit hidden text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
+                                </form>
+                            </div>
+
+                            <!-- Display nested replies -->
+                            <div class="mt-2">
+                                <?php display_replies($post['id'], 0, $replies_tree); ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <!-- Input box -->
-                <div class="bg-white p-6 rounded-2xl shadow-md border border-sky-100">
-                    <textarea id="thoughtInput" placeholder="Write your thoughts about the poem..."
+
+
+                <form method="POST">
+                    <input type="text" name="author" placeholder="Your Name (optional)"
+                        class="w-full border border-sky-200 rounded-lg p-3 mb-4 text-gray-700 focus:ring-2 focus:ring-sky-400 focus:outline-none">
+
+                    <textarea name="content" placeholder="Write your thoughts about the poem..."
                         class="w-full border border-sky-200 rounded-lg p-3 mb-4 text-gray-700 focus:ring-2 focus:ring-sky-400 focus:outline-none resize-none"></textarea>
-                    <button id="addThoughtBtn"
+
+                    <button type="submit"
                         class="bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700 transition font-semibold">Share</button>
-                </div>
+                </form>
+
+
             </div>
 
             <!-- Right: Image -->
             <div class="md:col-span-1">
-                <img src="/GreatBooks/images/pic4.jpg" alt="Pablo Neruda"
+                <img src="./images/pic4.jpg" alt="Pablo Neruda"
                     class="w-full h-96 md:h-full object-cover rounded-2xl shadow-xl border-4 border-sky-100">
             </div>
         </div>
     </section>
+
 
     <section class="w-full flex md:flex-row flex-col gap-4 items-center justify-center py-10 bg-white gap-4">
         <h1 class="font-bold text-xl">Line of the Day : </h1>
@@ -528,14 +679,14 @@
                 </p>
                 <div class="flex justify-center md:justify-start mt-2 space-x-4">
                     <a href="https://github.com/GeykScript" target="_blank" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/socials/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="./socials/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
                     <a href="https://www.facebook.com/jervy.jake.morales" target="_blank" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/socials/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="./socials/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
 
                     <a href="mailto:jjom2022-6574-75688@bicol-u.edu.ph" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/socials/email.png" alt="Email" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="./socials/email.png" alt="Email" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
                 </div>
             </div>
@@ -548,9 +699,9 @@
     </footer>
 
 
-
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="main.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="main.js"></script>
+
 
 </html>
