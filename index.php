@@ -159,7 +159,7 @@ function display_replies($post_id, $parent_id, $replies_tree)
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button @click="open = !open" class="md:hidden focus:outline-none"><p class="hidden">hide</p>
+                <button @click="open = !open" class="md:hidden focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#EF7722]" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -458,7 +458,7 @@ function display_replies($post_id, $parent_id, $replies_tree)
 
             <div class="relative overflow-hidden rounded-2xl shadow-lg bg-[#FFF8F0]" id="stanzaCarousel">
                 <!-- Carousel Slides -->
-                <div class="carousel-slide p-4 sm:p-6 block">
+                <div class="carousel-slide p-4 sm:p-6" style="display:block;">
                     <h3 class="text-xl font-semibold mb-3 text-[#EF7722]">Stanza 1</h3>
                     <blockquote class="italic text-gray-800 border-l-4 border-[#EF7722] pl-3 mb-3 text-center font-semibold bg-orange-300 p-3 sm:p-4 rounded-lg text-sm sm:text-base">
                         "Take bread away from me, if you wish, <br>
@@ -556,12 +556,12 @@ function display_replies($post_id, $parent_id, $replies_tree)
 
             <!-- Carousel Dots -->
             <div class="flex justify-center mt-6 space-x-2">
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-[#EF7722] rounded-full"><p class="hidden">btn 1</p></button>
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"><p class="hidden">btn 2</p></button>
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"><p class="hidden">btn 3</p></button>
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"><p class="hidden">btn 4</p></button>
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"><p class="hidden">btn 5</p></button>
-                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"><p class="hidden">btn 6</p></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-[#EF7722] rounded-full"></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></button>
+                <button class="dot w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></button>
             </div>
         </div>
 
@@ -678,19 +678,11 @@ function display_replies($post_id, $parent_id, $replies_tree)
                     Developed by <span class="underline font-semibold text-gray-800 underline-offset-4">Jervy Jake O. Morales</span>
                 </p>
                 <div class="flex justify-center md:justify-start mt-2 space-x-4">
-<<<<<<< HEAD:index.php
                     <a href="https://github.com/GeykScript" target="_blank" class="hover:cursor-pointer">
                         <img src="./socials/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
                     <a href="https://www.facebook.com/jervy.jake.morales" target="_blank" class="hover:cursor-pointer">
                         <img src="./socials/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition">
-=======
-                    <a href="https://github.com/GeykScript" target="_blank" rel="noopener noreferrer" class="hover:cursor-pointer">
-                        <img src="./socials/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
-                    </a>
-                    <a href="https://www.facebook.com/jervy.jake.morales" target="_blank" rel="noopener noreferrer" class="hover:cursor-pointer">
-                        <img src="./socials/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition"> 
->>>>>>> 379a418602b344e2b947686ee1add324df8aded9:index.html
                     </a>
 
                     <a href="mailto:jjom2022-6574-75688@bicol-u.edu.ph" class="hover:cursor-pointer">
