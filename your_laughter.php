@@ -98,7 +98,7 @@
             <div id="poemIntro" class="flex md:flex-row flex-col gap-10 items-center justify-center transition-all duration-500">
                 <div>
                     <img
-                        src="/GreatBooks/pic3.jpg"
+                        src="/GreatBooks/images/pic3.jpg"
                         alt="Pablo Neruda"
                         class="w-full md:max-w-xs rounded-lg shadow-lg cursor-pointer transform hover:scale-105 transition duration-300"
                         onclick="showNerudaDetails()">
@@ -123,7 +123,7 @@
 
                     <!-- Image -->
                     <div class="flex-shrink-0">
-                        <img src="/GreatBooks/pic1.jpg" alt="Pablo Neruda" class="w-72 md:w-100 rounded-lg shadow-lg">
+                        <img src="/GreatBooks/images/pic1.jpg" alt="Pablo Neruda" class="w-72 md:w-100 rounded-lg shadow-lg">
                     </div>
 
                     <!-- Info Content -->
@@ -275,37 +275,37 @@
                     <div class="flex space-x-6 p-2">
                         <!-- Metaphor -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Metaphor</h3>
                         </div>
 
                         <!-- Imagery -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Imagery</h3>
                         </div>
 
                         <!-- Repetition -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Repetition</h3>
                         </div>
 
                         <!-- Symbolism -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Symbolism</h3>
                         </div>
 
                         <!-- Tone -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Tone</h3>
                         </div>
 
                         <!-- Personification -->
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Personification</h3>
                         </div>
                     </div>
@@ -313,32 +313,32 @@
                     <!-- Duplicate set for smooth infinite effect -->
                     <div class="flex space-x-6 p-2">
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/metaphor.png" alt="Metaphor" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Metaphor</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/imagery.png" alt="Imagery" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Imagery</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg ">
-                            <img src="/GreatBooks/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/repetition.png" alt="Repetition" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Repetition</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/symbolism.png" alt="Symbolism" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Symbolism</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/tones.png" alt="Tone" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Tone</h3>
                         </div>
 
                         <div class="min-w-[200px] bg-[#FFF8F0] p-6 rounded-2xl shadow text-center flex-shrink-0 hover:scale-105 transform transition duration-300 shadow-lg">
-                            <img src="/GreatBooks/needs.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
+                            <img src="/GreatBooks/images/personification.png" alt="Personification" class="w-10 h-10 mx-auto mb-4">
                             <h3 class="text-xl font-semibold text-[#EF7722]">Personification</h3>
                         </div>
                     </div>
@@ -482,7 +482,7 @@
 
             <!-- Right: Image -->
             <div class="md:col-span-1">
-                <img src="/GreatBooks/pic4.jpg" alt="Pablo Neruda"
+                <img src="/GreatBooks/images/pic4.jpg" alt="Pablo Neruda"
                     class="w-full h-96 md:h-full object-cover rounded-2xl shadow-xl border-4 border-sky-100">
             </div>
         </div>
@@ -528,14 +528,14 @@
                 </p>
                 <div class="flex justify-center md:justify-start mt-2 space-x-4">
                     <a href="https://github.com/GeykScript" target="_blank" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="/GreatBooks/socials/github.png" alt="GitHub" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
                     <a href="https://www.facebook.com/jervy.jake.morales" target="_blank" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="/GreatBooks/socials/facebook.png" alt="Facebook" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
 
                     <a href="mailto:jjom2022-6574-75688@bicol-u.edu.ph" class="hover:cursor-pointer">
-                        <img src="/GreatBooks/email.png" alt="Email" class="w-6 h-6 hover:transform hover:scale-110 transition">
+                        <img src="/GreatBooks/socials/email.png" alt="Email" class="w-6 h-6 hover:transform hover:scale-110 transition">
                     </a>
                 </div>
             </div>
