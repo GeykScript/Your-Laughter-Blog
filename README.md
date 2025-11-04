@@ -9,8 +9,8 @@ Welcome to **Your Laughter Blog**, a website dedicated to celebrating Pablo Neru
 
 ## Developer
 
-- Developed by: **Your Name**  
-- GitHub: [your-github-profile](https://github.com/GeykScript)  
+- Developed by: **Jervy Jake Morales**  
+- GitHub: (https://github.com/GeykScript)  
 
 ## License
 
