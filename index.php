@@ -10,9 +10,8 @@
 
 </head>
 
-<?php
-include 'form.php'; // this defines $posts, $replies_tree, and functions
-?>
+
+
 
 <!-- ANIMATION STYLE -->
 <style>
@@ -48,10 +47,10 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
     }
 </style>
 
-<body class="bg-gradient-to-b from-orange-50 text-gray-800 min-h-screen flex flex-col">
+<body class=" text-gray-800  flex flex-col">
 
     <!-- HEADER -->
-    <header class="bg-gray-900 text-white py-4 px-4 shadow-md sticky top-0 z-50" x-data="{ open: false }">
+    <header class="bg-gray-900 text-white py-4 px-4 shadow-md sticky top-0 z-50 " x-data="{ open: false }">
         <div class="max-w-7xl mx-auto flex flex-col">
             <!-- Top Row: Title + Hamburger -->
             <div class="flex justify-between items-center">
@@ -73,7 +72,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                 <ul class="hidden md:flex md:space-x-14 text-gray-100 text-lg">
                     <li><a href="#home" class="hover:text-[#EF7722] hover:underline underline-offset-4">Home</a></li>
                     <li><a href="#poem" class="hover:text-[#EF7722] hover:underline underline-offset-4">Read Poem</a></li>
-                    <li><a href="#summary" class="hover:text-[#EF7722] hover:underline underline-offset-4">Analysis</a></li>
+                    <li><a href="#explanation" class="hover:text-[#EF7722] hover:underline underline-offset-4">Analysis</a></li>
                     <li><a href="#share-thoughts" class="hover:text-[#EF7722] hover:underline underline-offset-4">Share Thoughts</a></li>
                 </ul>
             </div>
@@ -88,7 +87,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                     <a href="#poem" class="block py-2 hover:text-[#EF7722] hover:underline underline-offset-4" @click="open = false">Read Poem</a>
                 </li>
                 <li class="text-center">
-                    <a href="#summary" class="block py-2 hover:text-[#EF7722] hover:underline underline-offset-4" @click="open = false">Analysis</a>
+                    <a href="#explanation" class="block py-2 hover:text-[#EF7722] hover:underline underline-offset-4" @click="open = false">Analysis</a>
                 </li>
                 <li class="text-center">
                     <a href="#share-thoughts" class="block py-2 hover:text-[#EF7722] hover:underline underline-offset-4" @click="open = false">Share Thoughts</a>
@@ -98,7 +97,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
     </header>
 
     <!-- HERO SECTION -->
-    <section id="home" class="flex items-center justify-center py-16 ">
+    <section id="home" class="bg-gradient-to-b from-orange-100 md:from-orange-200 flex items-center justify-center py-16 ">
         <div class="container mx-auto px-6">
             <!-- Default View (Poem Intro) -->
             <div id="poemIntro" class="flex md:flex-row flex-col gap-10 items-center justify-center transition-all duration-500">
@@ -356,7 +355,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
     <!-- EXPLANATION PER STANZA (WITH LINES) - CAROUSEL -->
     <section id="explanation" class="py-16 bg-gray-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-            <h2 class="text-2xl md:text-4xl font-bold mb-8 text-[#EF7722]">Explanation Per Stanza</h2>
+            <h2 class="text-2xl md:text-4xl font-bold mb-8 text-[#EF7722]">Poem Analysis</h2>
 
             <div class="relative overflow-hidden rounded-2xl shadow-lg bg-[#FFF8F0]" id="stanzaCarousel">
                 <!-- Carousel Slides -->
@@ -367,10 +366,10 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         take air away, but <br>
                         do not take from me your laughter."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        The speaker expresses that his lover’s laughter is more vital than food or air.
-                        This exaggeration (hyperbole) shows <b>his emotional dependence</b> and how her joy
-                        sustains his very life more than any physical need.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        The poet values the other person's happiness and laughter more than they value their own survival.
+                        It's a way of expressing that someone's laugh or smile means everything to them and it's more important than anything else, even life itself.
+                        It's a poetic way of saying <b>"Laughter weighs heavier than life, for it fills the void that mere existence cannot."</b>
                     </p>
                 </div>
 
@@ -381,9 +380,10 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         the lance flower that you pluck, <br>
                         the water that suddenly bursts forth in joy..."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        Her laughter is compared to natural imagery like flowers and water — symbols of
-                        <b>life, freshness, and beauty</b>. Neruda portrays laughter as something natural and life-giving.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        In the poem, laughter is compared to natural things like flowers and water because they represent life and beauty.
+                        Just like flowers are delicate and beautiful, and water is fresh and brings life, laughter also brings freshness, joy, and life to a person. <br>
+                        <b>" Laughter is as important and natural as flowers and water. It keeps us alive and makes life beautiful. "</b>
                     </p>
                 </div>
 
@@ -396,9 +396,9 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         it rises to the sky seeking me <br>
                         and it opens for me all the doors of life."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        The poet admits to life’s hardships and exhaustion. Yet, his lover’s laughter
-                        <b>revives his spirit</b>, lifting him emotionally and spiritually — a symbol of <b>hope and renewal</b>.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        Pablo compares laughter to light from the sky because it represents hope and salvation.
+                        Just like light breaks through darkness and brings hope and joy. <b> "Laughter is like a guiding light that lifts a person's spirits and opens up new possibilities in life."</b>
                     </p>
                 </div>
 
@@ -408,9 +408,11 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         "If suddenly you see my blood staining the stones of the street, <br>
                         laugh, because your laughter will be for my hands like a fresh sword."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        Even in danger or death, he tells her to keep laughing. Her laughter becomes a <b>weapon of courage</b>,
-                        turning his pain into strength. The “fresh sword” symbolizes <b>resilience</b>.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        Neruda shows that laughter is not just an emotion,
+                        it is a weapon that saves us in our darkest moments. When everything feels hopeless and painful, someone's laughter becomes our strength to survive and continue fighting.
+                        <b>" Laughter is a weapon. It turns pain into strength and helps us survive even in the darkest times."</b>
+
                     </p>
                 </div>
 
@@ -421,9 +423,10 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         your laughter must raise its foamy cascade, <br>
                         and in the spring, love, I want your laughter like the flower I was waiting for..."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        Neruda connects laughter with <b>changing seasons and nature’s cycles</b>,
-                        showing that her joy brings color to his world all year long — a symbol of <b>continuity and renewal</b>.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        In the poem, laughter is compared to natural things like ocean waves and flowers because they represent life, beauty, and renewal.
+                        Just like waves bring power and flowers bring beauty, laughter also brings strength and joy in every season of life.
+                        <b>"Laughter is like the changing seasons, bringing renewal and joy throughout the year."</b>
                     </p>
                 </div>
 
@@ -434,9 +437,9 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                         deny me bread, air, light, spring, <br>
                         but never your laughter for I would die."
                     </blockquote>
-                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed">
-                        The final stanza repeats the poem’s central plea — her laughter is <b>his lifeline</b>.
-                        Neruda ends with deep emotional intensity, merging themes of <b>love, dependence, and joy</b>.
+                    <p class="text-gray-700 text-left text-sm sm:text-base leading-relaxed px-5">
+                        In the poem, laughter is the ultimate symbol of life and meaning. The poet is saying that all material things and even survival itself are worthless without the joy and laughter of the person he loves. <br>
+                        <b>"Laughter is the music of life; without it, the world falls silent."</b>
                     </p>
                 </div>
                 <!-- Previous button -->
@@ -481,44 +484,12 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                 </div>
 
                 <div id="thoughtsList" class="bg-sky-100 space-y-2 mb-6 max-h-96 overflow-y-auto p-4">
-                    <?php foreach ($posts as $post): ?>
-                        <div class="mb-4 py-4 px-6 bg-white rounded-lg">
-                            <p class="italic text-gray-800 break-words leading-relaxed">"<?= htmlspecialchars($post['content']) ?>"</p>
-                            <p class="text-xs text-gray-500 my-2">— posted on <?= date("m/d/Y H:i", strtotime($post['created_at'])) ?> by <?= htmlspecialchars($post['author']) ?></p>
-
-                            <div class="flex items-center gap-4">
-                                <!-- Like post -->
-                                <form method="POST" action="form.php">
-                                    <input type="hidden" name="like_post_id" value="<?= $post['id'] ?>">
-                                    <button type="submit" class="flex items-center text-red-600 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#e90e0eff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#e90e0eff" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.015-4.5-4.5-4.5-1.74 0-3.285.992-4.05 2.457C11.285 4.742 9.74 3.75 8 3.75 5.515 3.75 3.5 5.765 3.5 8.25c0 7.22 8.5 12 8.5 12s8.5-4.78 8.5-12z" />
-                                        </svg>
-                                        <span><?= $post['likes'] ?: 0 ?></span>
-                                    </button>
-                                </form>
-
-                                <!-- Reply form for main post -->
-                                <form method="POST" class="mt-1 reply-form" action="form.php">
-                                    <input type="hidden" name="reply_post_id" value="<?= $post['id'] ?>">
-                                    <input type="text" name="reply_author" placeholder="Your Name (optional)" class="reply-author hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none">
-                                    <textarea name="reply_content" placeholder="Write a reply..." class="reply-content hidden w-full border border-sky-200 rounded-sm p-1 mb-1 text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none resize-none" rows="1"></textarea>
-                                    <button type="button" class="show-reply-btn text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
-                                    <button type="submit" class="reply-submit hidden text-sky-500 hover:text-sky-600 px-2 py-1 rounded-sm transition text-sm">Reply</button>
-                                </form>
-                            </div>
-
-                            <!-- Display nested replies -->
-                            <div class="mt-2">
-                                <?php display_replies($post['id'], 0, $replies_tree); ?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
-
-
-
-                <form method="POST" action="form.php">
+                <!-- Success Message -->
+                <div id="successMessage" class="hidden mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg animate-pulse">
+                    <p class="font-semibold">✓ Your thought has been shared successfully!</p>
+                </div>
+                <form method="POST" action="form.php" id="postForm">
                     <input type="text" name="author" placeholder="Your Name (optional)"
                         class="w-full border border-sky-200 rounded-lg p-3 mb-4 text-gray-700 focus:ring-2 focus:ring-sky-400 focus:outline-none">
 
@@ -528,10 +499,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                     <button type="submit"
                         class="bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700 transition font-semibold">Share</button>
                 </form>
-
-
             </div>
-
             <!-- Right: Image -->
             <div class="md:col-span-1">
                 <img src="./images/pic4.jpg" alt="Pablo Neruda"
@@ -554,12 +522,15 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
     <footer class="mt-auto bg-[#0BA6DF] text-white py-10 shadow-inner">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
 
-            <!-- About / Inspiration -->
             <div>
-                <h3 class="font-bold text-lg mb-2">About</h3>
+                <h3 class="font-bold text-lg mb-2">Download Material</h3>
                 <p class="text-sm md:text-base">
-                    Your Laughter Blog celebrates the timeless poetry of Pablo Neruda, bringing joy and reflection through words.
+                    Download a sample report about "Your Laughter by Palbo Neruda" here.
                 </p>
+                <a href="YourLaughter.pdf" download
+                    class="inline-block mt-2 px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700">
+                    Download PDF
+                </a>
             </div>
 
             <!-- Quick Links -->
@@ -568,7 +539,7 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
                 <ul class="text-sm md:text-base space-y-1">
                     <li><a href="#home" class="hover:underline hover:text-gray-800 underline-offset-4">Home</a></li>
                     <li><a href="#poem" class="hover:underline hover:text-gray-800 underline-offset-4">Read Poem</a></li>
-                    <li><a href="#summary" class="hover:underline hover:text-gray-800 underline-offset-4">Analysis</a></li>
+                    <li><a href="#explanation" class="hover:underline hover:text-gray-800 underline-offset-4">Analysis</a></li>
                     <li><a href="#share-thoughts" class="hover:underline hover:text-gray-800 underline-offset-4">Share Thoughts</a></li>
                 </ul>
             </div>
@@ -600,6 +571,168 @@ include 'form.php'; // this defines $posts, $replies_tree, and functions
         </div>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // ======================== RELOAD POSTS (AJAX) ========================
+            async function loadPosts() {
+                try {
+                    let res = await fetch("fetch_posts.php");
+                    let html = await res.text();
+                    document.getElementById("thoughtsList").innerHTML = html;
+
+                    // Re-attach event listeners after content updates
+                    attachEventListeners();
+                } catch (error) {
+                    console.error("Error loading posts:", error);
+                }
+            }
+
+            // ======================== ATTACH EVENT LISTENERS ========================
+            function attachEventListeners() {
+
+                // Like buttons for posts
+                document.querySelectorAll(".like-post-form").forEach(form => {
+                    form.addEventListener("submit", async function(e) {
+                        e.preventDefault();
+                        console.log("Like post clicked");
+
+                        let formData = new FormData(this);
+                        let likePostId = formData.get("like_post_id");
+                        console.log("Liking post ID:", likePostId);
+
+                        try {
+                            let res = await fetch("form.php", {
+                                method: "POST",
+                                body: formData
+                            });
+
+                            let data = await res.text();
+                            console.log("Response:", data);
+
+                            if (data.includes("success")) {
+                                loadPosts();
+                            }
+                        } catch (error) {
+                            console.error("Error liking post:", error);
+                        }
+                    });
+                });
+
+                // Like buttons for replies
+                document.querySelectorAll(".like-reply-form").forEach(form => {
+                    form.addEventListener("submit", async function(e) {
+                        e.preventDefault();
+                        console.log("Like reply clicked");
+
+                        let formData = new FormData(this);
+                        let likeReplyId = formData.get("like_reply_id");
+                        console.log("Liking reply ID:", likeReplyId);
+
+                        try {
+                            let res = await fetch("form.php", {
+                                method: "POST",
+                                body: formData
+                            });
+
+                            let data = await res.text();
+                            console.log("Response:", data);
+
+                            if (data.includes("success")) {
+                                loadPosts();
+                            }
+                        } catch (error) {
+                            console.error("Error liking reply:", error);
+                        }
+                    });
+                });
+
+                // Reply forms
+                document.querySelectorAll(".reply-form").forEach(form => {
+                    form.addEventListener("submit", async function(e) {
+                        e.preventDefault();
+                        let formData = new FormData(this);
+
+                        try {
+                            let res = await fetch("form.php", {
+                                method: "POST",
+                                body: formData
+                            });
+
+                            let data = await res.text();
+                            if (data.includes("success")) {
+                                // Clear reply form fields
+                                form.querySelectorAll("input[type='text'], textarea").forEach(field => {
+                                    field.value = "";
+                                    field.classList.add("hidden");
+                                });
+                                form.querySelector(".show-reply-btn").classList.remove("hidden");
+                                form.querySelector(".reply-submit").classList.add("hidden");
+
+                                loadPosts();
+                            }
+                        } catch (error) {
+                            console.error("Error posting reply:", error);
+                        }
+                    });
+
+                    // Show/hide reply form
+                    const showReplyBtn = form.querySelector(".show-reply-btn");
+                    const replySubmitBtn = form.querySelector(".reply-submit");
+                    const replyAuthor = form.querySelector(".reply-author");
+                    const replyContent = form.querySelector(".reply-content");
+
+                    if (showReplyBtn) {
+                        showReplyBtn.addEventListener("click", function() {
+                            replyAuthor.classList.remove("hidden");
+                            replyContent.classList.remove("hidden");
+                            replySubmitBtn.classList.remove("hidden");
+                            showReplyBtn.classList.add("hidden");
+                        });
+                    }
+                });
+            }
+
+            // ======================== POST FORM SUBMISSION ========================
+            document.getElementById("postForm")?.addEventListener("submit", async function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+
+                try {
+                    let res = await fetch("form.php", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    let data = await res.text();
+
+                    if (data.includes("success")) {
+                        // Clear form inputs
+                        document.getElementById("postForm").reset();
+
+                        // Show success message
+                        let successMsg = document.getElementById("successMessage");
+                        successMsg.classList.remove("hidden");
+
+                        // Auto-hide success message after 3 seconds
+                        setTimeout(() => {
+                            successMsg.classList.add("hidden");
+                        }, 3000);
+
+                        // Refresh the thoughts list
+                        loadPosts();
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            });
+
+            // ======================== INITIAL LOAD ========================
+            loadPosts(); // Load posts on page load
+
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="main.js"></script>
